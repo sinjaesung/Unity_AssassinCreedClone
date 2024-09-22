@@ -34,6 +34,8 @@ public class KnightAI : MonoBehaviour
     public float timebtwAttack;
     public Animator anim;
 
+    public bool isDied = false;
+
     private void Start()
     {
         CurrentmovingSpeed = movingSpeed;
@@ -229,12 +231,17 @@ public class KnightAI : MonoBehaviour
 
         if(currentHealth <= 0f)
         {
-            Die();
+            if (!isDied)
+            {
+                Die();
+            }
         }
     } 
 
     void Die()
     {
+        Debug.Log("isDead Anim ½ÇÇà>>");
+        isDied = true;
         anim.SetBool("isDead", true);
         this.enabled = false;
         GetComponent<Collider>().enabled = false;
