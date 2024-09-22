@@ -61,21 +61,21 @@ public class Inventory : MonoBehaviour
         if(Input.GetKeyDown("1") && isWeapon1Active == false && isWeapon2Active == false && isWeapon3Active == false && isWeapon4Active == false && isWeapon1Picked==true)
         {
             isWeapon1Active = true;
-            isRifleActive();
+            isRifleActive();fistFightMode = false;
             CurrentWeapon1.SetActive(true);
             NoWeapon.SetActive(false);
         }
         else if(Input.GetKeyDown("1") && isWeapon1Active==true)
         {
             isWeapon1Active = false;
-            isRifleActive();
+            isRifleActive(); 
             CurrentWeapon1.SetActive(false);
         }
 
         if(Input.GetKeyDown("2") && isWeapon1Active == false && isWeapon2Active == false && isWeapon3Active == false && isWeapon4Active == false && isWeapon2Picked == true)
         {
             isWeapon2Active = true;
-            isRifleActive();
+            isRifleActive(); fistFightMode = false;
             CurrentWeapon2.SetActive(true);
             NoWeapon.SetActive(false);
         }
@@ -89,7 +89,7 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown("3") && isWeapon1Active == false && isWeapon2Active == false && isWeapon3Active == false && isWeapon4Active == false && isWeapon3Picked == true)
         {
             isWeapon3Active = true;
-            isRifleActive();
+            isRifleActive(); fistFightMode = false;
             CurrentWeapon3.SetActive(true);
             NoWeapon.SetActive(false);
         }
@@ -104,7 +104,7 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown("4") && isWeapon1Active == false && isWeapon2Active == false && isWeapon3Active == false && isWeapon4Active == false && isWeapon4Picked == true)
         {
             isWeapon4Active = true;
-            isRifleActive();
+            isRifleActive(); fistFightMode = false;
             CurrentWeapon4.SetActive(true);
             NoWeapon.SetActive(false);
         }
@@ -125,12 +125,12 @@ public class Inventory : MonoBehaviour
 
         if(Input.GetKeyDown("5") && isWeapon1Active == false && isWeapon2Active == false && isWeapon3Active == false && isWeapon4Active == false && GM.numberofHealth > 0 && playerScript.presentHealth < 95)
         {
-            StartCoroutine(IncreaseHealth());
+            StartCoroutine(IncreaseHealth()); 
         }
 
         if (Input.GetKeyDown("6") && isWeapon1Active == false && isWeapon2Active == false && isWeapon3Active == false && isWeapon4Active == false && GM.numberofEnergy > 0 && playerScript.presentEnergy < 95)
         {
-            StartCoroutine(IncreaseEnergy());
+            StartCoroutine(IncreaseEnergy()); 
         }
     }
 
@@ -140,12 +140,15 @@ public class Inventory : MonoBehaviour
         {
             fistFight.GetComponent<FistFight>().enabled = true;
         }
+        
 
         if(isWeapon1Active == true)
         {
             StartCoroutine(Weapon1GO());
             SMAS.GetComponent<SingleMeleeAttack>().enabled = true;
+            fistFight.GetComponent<FistFight>().enabled = false;
             anim.SetBool("SingleHandAttackActive", true);
+            anim.SetBool("FistFightActive", false);
         }
         if (isWeapon1Active == false)
         {
@@ -158,7 +161,9 @@ public class Inventory : MonoBehaviour
         {
             StartCoroutine(Weapon2GO());
             rifle.GetComponent<Rifle>().enabled = true;
+            fistFight.GetComponent<FistFight>().enabled = false;
             anim.SetBool("RifleActive", true);
+            anim.SetBool("FistFightActive", false);
         }
         if(isWeapon2Active == false)
         {
@@ -171,6 +176,8 @@ public class Inventory : MonoBehaviour
         {
             StartCoroutine(Weapon3GO());
             bazooka.GetComponent<Bazooka>().enabled = true;
+            fistFight.GetComponent<FistFight>().enabled = false;
+            anim.SetBool("FistFightActive", false);
             anim.SetBool("BazookaActive", true);
         }
         if (isWeapon3Active == false)
@@ -183,7 +190,9 @@ public class Inventory : MonoBehaviour
         if (isWeapon4Active == true)
         {
             StartCoroutine(Weapon4GO());
+            anim.SetBool("FistFightActive", false);
             grenadethrower.GetComponent<GrenadeThrower>().enabled = true;
+            fistFight.GetComponent<FistFight>().enabled = false;
         }
         if (isWeapon4Active == false)
         {

@@ -63,12 +63,12 @@ public class Rifle : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            animator.SetBool("RifleAim", true);
+            //animator.SetBool("RifleAim", true);
             //crosshair.SetActive(true);
         }
         else if (!Input.GetMouseButton(1))
         {
-            animator.SetBool("RifleAim", false);
+            //animator.SetBool("RifleAim", false);
             //crosshair.SetActive(false);
         }
 
@@ -119,7 +119,7 @@ public class Rifle : MonoBehaviour
     {
         setReloading = true;
         animator.SetFloat("movementValue", 0f);
-        playerScript.movementSpeed = 0f;
+        //playerScript.movementSpeed = 0f;
         animator.SetBool("ReloadRifle", true);
         //reloading anim
         yield return new WaitForSeconds(reloadingTime);
@@ -127,6 +127,6 @@ public class Rifle : MonoBehaviour
         presentAmmunition = maximumAmmunition;
         setReloading = false;
         animator.SetFloat("movementValue",0f);
-        playerScript.movementSpeed = 5f;
+        //playerScript.movementSpeed = 5f;
     }
 }

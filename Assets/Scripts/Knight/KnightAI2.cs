@@ -185,7 +185,7 @@ public class KnightAI2 : MonoBehaviour
     {
         currentHealth -= amount;
 
-        anim.SetTrigger("GetHit");
+        //anim.SetTrigger("GetHit");
 
         if (currentHealth <= 0f)
         {
@@ -198,5 +198,6 @@ public class KnightAI2 : MonoBehaviour
         anim.SetBool("isDead", true);
         this.enabled = false;
         GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, 6f);
     }
 }

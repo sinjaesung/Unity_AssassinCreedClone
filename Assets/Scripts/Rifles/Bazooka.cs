@@ -62,12 +62,12 @@ public class Bazooka : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            animator.SetBool("BazookaAim", true);
+           // animator.SetBool("BazookaAim", true);
             //crosshair.SetActive(true);
         }
         else if (!Input.GetMouseButton(1))
         {
-            animator.SetBool("RifleAim", false);
+            //animator.SetBool("RifleAim", false);
             //crosshair.SetActive(false);
         }
 
@@ -117,7 +117,7 @@ public class Bazooka : MonoBehaviour
     {
         setReloading = true;
         animator.SetFloat("movementValue", 0f);
-        playerScript.movementSpeed = 0f;
+        //playerScript.movementSpeed = 0f;
         animator.SetBool("ReloadBazooka", true);
         //reloading anim
         yield return new WaitForSeconds(reloadingTime);
@@ -125,6 +125,6 @@ public class Bazooka : MonoBehaviour
         presentAmmunition = maximumAmmunition;
         setReloading = false;
         animator.SetFloat("movementValue", 0f);
-        playerScript.movementSpeed = 5f;
+        //playerScript.movementSpeed = 5f;
     }
 }
