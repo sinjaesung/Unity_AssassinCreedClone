@@ -6,12 +6,17 @@ public class EnvironmentChecker : MonoBehaviour
 {
     public Vector3 rayOffset = new Vector3(0, 0.2f, 0);
     public float rayLength = 0.9f;
-    public float heightRayLength = 6f;
+    public float heightRayLength = 999f;
     public LayerMask obstacleLayer;
 
     [Header("Check Ledges")]
-    [SerializeField] float ledgeRayLength = 11f;
+    [SerializeField] float ledgeRayLength = 999f;
     [SerializeField] float ledgeRayHeightThreshold = 0.76f;
+
+    [Header("Climbing Check")]
+    [SerializeField] float climbingRayLength = 1.6f;
+    [SerializeField] private LayerMask climbingLayer;
+    public int numberOfRays = 12;
 
     public ObstacleInfo CheckObstacle()
     {
@@ -65,6 +70,44 @@ public class EnvironmentChecker : MonoBehaviour
                 }
             }  
         }
+        return false;
+    }
+
+    public bool CheckClimbing(Vector3 climbDirection, out RaycastHit climbInfo)
+    {
+        climbInfo = new RaycastHit();
+
+        if (climbDirection == Vector3.zero)
+            return false;
+
+        var climbOrigin = transform.position + Vector3.up * 1.5f;
+        var climbOffset = new Vector3(0, 0.19f, 0);
+
+        for (int i = 0; i < numberOfRays; i++)
+        {
+            Debug.DrawRay(climbOrigin + climbOffset * i, climbDirection, Color.red);
+            if (Physics.Raycast(climbOrigin + climbOffset * i, climbDirection, out RaycastHit hit, climbingRayLength, climbingLayer))
+            {
+                climbInfo = hit;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool CheckDropClimbPoint(out RaycastHit DropHit)
+    {
+        DropHit = new RaycastHit();
+
+        var origin = transform.position + Vector3.down * 0.1f + transform.forward * 2f;
+        Debug.DrawRay(origin, -transform.forward, Color.red);
+        if (Physics.Raycast(origin, -transform.forward, out RaycastHit hit, 3, climbingLayer))
+        {
+            DropHit = hit;
+            return true;
+        }
+
         return false;
     }
 }

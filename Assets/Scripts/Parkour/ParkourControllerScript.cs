@@ -18,7 +18,7 @@ public class ParkourControllerScript : MonoBehaviour
     {
 
         var hitData = environmentChecker.CheckObstacle();
-        if (Input.GetButton("Jump") && !playerInAction)
+        if (Input.GetButton("Jump") && !playerScript.playerInAction && !playerScript.playerHanging)
         {
             if (hitData.hitFound)
             {
@@ -48,8 +48,28 @@ public class ParkourControllerScript : MonoBehaviour
             }
         }
     }
-
     IEnumerator PerformParkourAction(NewParkourAction action)
+    {
+        playerScript.SetControl(false);
+
+        CompareTargetParameter compareTargetParameter = null;
+        if (action.AllowTargetMatching)
+        {
+            compareTargetParameter = new CompareTargetParameter()
+            {
+                position = action.ComparePosition,
+                bodyPart = action.CompareBodyPart,
+                positionWeight = action.ComparePositionWeight,
+                StartTime = action.CompareStartTime,
+                endTime = action.CompareEndTime
+            };
+        }
+
+        yield return playerScript.PerformAction(action.AnimationName, compareTargetParameter, action.RequiredRotation,
+            action.LookAtObstacle, action.ParkourActionDelay);
+        playerScript.SetControl(true);
+    }
+    /*IEnumerator PerformParkourAction(NewParkourAction action)
     {
         Debug.Log("PerformParkourAction 액션 시행시에는 모든 대전모드형상태해제" + action.AnimationName);
         animator.SetBool("FistFightActive", false);
@@ -106,5 +126,6 @@ public class ParkourControllerScript : MonoBehaviour
     void CompareTarget(NewParkourAction action)
     {
         animator.MatchTarget(action.ComparePosition, transform.rotation, action.CompareBodyPart, new MatchTargetWeightMask(action.ComparePositionWeight,0), action.CompareStartTime, action.CompareEndTime);
-    }
+    }*/
+
 }

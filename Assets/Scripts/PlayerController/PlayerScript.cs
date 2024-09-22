@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour
     public LayerMask surfaceLayer;
     bool onSurface;
     public bool playerOnLedge { get; set; }
+    public bool playerHanging { get; set; }
     public LedgeInfo LedgeInfo { get; set; }
     [SerializeField] float fallingSpeed;
     [SerializeField] Vector3 moveDir;
@@ -76,6 +77,9 @@ public class PlayerScript : MonoBehaviour
         }
 
         if (!playerControl)
+            return;
+
+        if (playerHanging)
             return;
 
         velocity = Vector3.zero;
