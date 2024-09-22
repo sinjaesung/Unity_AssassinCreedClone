@@ -21,6 +21,8 @@ public class PlayerScript : MonoBehaviour
     Quaternion requireRotation;
     bool playerControl = true;
 
+    public bool playerInAction { get; private set; }
+
     [Header("Player Animator")]
     public Animator animator;
 
@@ -155,6 +157,55 @@ public class PlayerScript : MonoBehaviour
         Gizmos.DrawSphere(transform.TransformPoint(surfaceCheckOffset), surfaceCheckRadius);
     }
 
+    public IEnumerator PerformAction(string AnimationName,CompareTargetParameter ctp=null,
+        Quaternion RequiredRotation = new Quaternion(), bool LookAtObstacle = false, float ParkourActionDelay = 0f)
+    {
+        playerInAction = true;
+
+        animator.CrossFadeInFixedTime(AnimationName, 0.2f);
+        yield return null;
+
+        var animationState = animator.GetNextAnimatorStateInfo(0);
+        if(!animationState.IsName(AnimationName))
+            Debug.Log("Animation Name is Incorrect");
+
+        float rotateStartTime = (ctp != null) ? ctp.StartTime : 0f;
+        float timerCounter = 0f;
+
+        while(timerCounter < animationState.length)
+        {
+            timerCounter += Time.deltaTime;
+
+            float normalizedTimerCounter = timerCounter / animationState.length;
+
+            //make player to look towards the obstacle
+            if (LookAtObstacle && normalizedTimerCounter > rotateStartTime)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, RequiredRotation, rotSpeed * Time.deltaTime);
+            }
+
+            if (ctp != null)
+            {
+                CompareTarget(ctp);
+            }
+
+            if (animator.IsInTransition(0) && timerCounter > 0.5f)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(ParkourActionDelay);
+
+        playerInAction = false;
+    }
+    void CompareTarget(CompareTargetParameter compareTargetParameter)
+    {
+        animator.MatchTarget(compareTargetParameter.position, transform.rotation, compareTargetParameter.bodyPart,
+            new MatchTargetWeightMask(compareTargetParameter.positionWeight, 0), compareTargetParameter.StartTime, compareTargetParameter.endTime);
+    }
     public void SetControl(bool hasControl)
     {
         this.playerControl = hasControl;
@@ -166,7 +217,15 @@ public class PlayerScript : MonoBehaviour
             requireRotation = transform.rotation;
         }
     }
-
+    public void EnableCC(bool enabled)
+    {
+        Cc.enabled = enabled;
+    }
+    public void ResetRequiredRotation()
+    {
+        requireRotation = transform.rotation;
+    }
+   
     public bool HasPlayerControl
     {
          get => playerControl;
@@ -211,4 +270,13 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         DamageIndicator.SetActive(false);
     }
+}
+
+public class CompareTargetParameter
+{
+    public Vector3 position;
+    public AvatarTarget bodyPart;
+    public Vector3 positionWeight;
+    public float StartTime;
+    public float endTime;
 }
