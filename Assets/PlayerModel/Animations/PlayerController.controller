@@ -299,7 +299,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 144057200835427981}
-    m_Position: {x: 470, y: -50, z: 0}
+    m_Position: {x: 520, y: -100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1419627346687677952}
     m_Position: {x: 210, y: 10, z: 0}
@@ -1985,7 +1985,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jump From Wall
+  m_Name: JumpFromWall
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
