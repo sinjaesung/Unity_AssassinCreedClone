@@ -35,14 +35,14 @@ public class ParkourControllerScript : MonoBehaviour
 
         if(playerScript.playerOnLedge && !playerInAction && !hitData.hitFound )
         {
-            bool canJump = true;
-            if (playerScript.LedgeInfo.height > autoJumpHeightLimit && !Input.GetButton("Jump"))
-                canJump = false;
+           // bool canJump = true;
+            //if (playerScript.LedgeInfo.height > autoJumpHeightLimit && !Input.GetButton("Jump"))
+                //canJump = false;
 
             Debug.Log("PlayerScript LedgeInfo angle:" + playerScript.LedgeInfo.angle);
-            if (canJump && playerScript.LedgeInfo.angle <= 90)
+            if (playerScript.LedgeInfo.angle <= 90 && Input.GetButton("Jump"))
             {
-                Debug.Log("PlayerScript LedgeInfo angle <=90인경우= angle:" + playerScript.LedgeInfo.angle);
+                Debug.Log("jumpDownParkourAction가능한 경우" + playerScript.LedgeInfo.angle);
                 playerScript.playerOnLedge = false;
                 StartCoroutine(PerformParkourAction(jumpDownParkourAction));//JumpDown->exitTime시 FallingIdle -> OnSurface시에 landing
             }
@@ -65,6 +65,7 @@ public class ParkourControllerScript : MonoBehaviour
             };
         }
 
+        Debug.Log("Perform ParkourActionName>>" + action.AnimationName);
         yield return playerScript.PerformAction(action.AnimationName, compareTargetParameter, action.RequiredRotation,
             action.LookAtObstacle, action.ParkourActionDelay);
         playerScript.SetControl(true);

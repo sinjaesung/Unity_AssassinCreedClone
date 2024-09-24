@@ -31,7 +31,7 @@ public class PlayerScript : MonoBehaviour
     public float surfaceCheckRadius = 0.1f;
     public Vector3 surfaceCheckOffset;
     public LayerMask surfaceLayer;
-    bool onSurface;
+    public bool onSurface;
     public bool playerOnLedge { get; set; }
     public bool playerHanging { get; set; }
     public LedgeInfo LedgeInfo { get; set; }

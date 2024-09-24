@@ -159,6 +159,7 @@ public class ClimbingController : MonoBehaviour
 
         var requiredRot = Quaternion.LookRotation(-ledgePoint.forward);
 
+        Debug.Log("ClimbToLedge PerformActionName>>" + animationName);
         yield return playerScript.PerformAction(animationName, compareParams, requiredRot, true);
 
         playerScript.playerHanging = true;

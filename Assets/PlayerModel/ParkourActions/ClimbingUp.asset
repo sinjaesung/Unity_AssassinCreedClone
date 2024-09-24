@@ -15,7 +15,7 @@ MonoBehaviour:
   animationName: ClimbingUp
   barrierTag: 
   minimumHeight: 1.6
-  maximumHeight: 9
+  maximumHeight: 4
   lookAtObstacle: 1
   parkourActionDelay: 0.5
   allowTargetMatching: 1

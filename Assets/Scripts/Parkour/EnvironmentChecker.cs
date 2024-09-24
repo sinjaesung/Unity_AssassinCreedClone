@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnvironmentChecker : MonoBehaviour
 {
     public Vector3 rayOffset = new Vector3(0, 0.2f, 0);
-    public float rayLength = 0.9f;
+    public float rayLength = 0.6f;
     public float heightRayLength = 999f;
     public LayerMask obstacleLayer;
 
@@ -57,12 +57,11 @@ public class EnvironmentChecker : MonoBehaviour
             {
                 float Ledgeheight = transform.position.y - hit.point.y;
 
-                Debug.Log("[CheckLedge]ledgeOrigin,characterPos,ledgeRaycastHitpoint:" + ledgeOrigin + "," + transform.position + "," + hit.point);
+                Debug.Log($"CheckLedge >> transform.forward,surfaceHit.normal:{Ledgeheight} , {ledgeRayHeightThreshold}");
 
                 if (Ledgeheight > ledgeRayHeightThreshold)
                 {
-                    Debug.Log("transform.forward,surfaceHit.normal:" + transform.forward + "," + surfaceHit.normal);
-                    Debug.Log("Vector3.Angle(transform.forward, surfaceHit.normal):" + Vector3.Angle(transform.forward, surfaceHit.normal));
+                    Debug.Log($"CheckLedge 가능 >> transform.forward,surfaceHit.normal:{Ledgeheight} > {ledgeRayHeightThreshold}");
                     ledgeInfo.angle = Vector3.Angle(transform.forward, surfaceHit.normal);
                     ledgeInfo.height = Ledgeheight;
                     ledgeInfo.surfaceHit = surfaceHit;
@@ -88,6 +87,7 @@ public class EnvironmentChecker : MonoBehaviour
             Debug.DrawRay(climbOrigin + climbOffset * i, climbDirection, Color.red);
             if (Physics.Raycast(climbOrigin + climbOffset * i, climbDirection, out RaycastHit hit, climbingRayLength, climbingLayer))
             {
+                Debug.Log("CheckClimbing 가능 발견>>" + hit.transform.name);
                 climbInfo = hit;
                 return true;
             }
@@ -104,6 +104,7 @@ public class EnvironmentChecker : MonoBehaviour
         Debug.DrawRay(origin, -transform.forward, Color.red);
         if (Physics.Raycast(origin, -transform.forward, out RaycastHit hit, 3, climbingLayer))
         {
+            Debug.Log("CheckDropClimbPoint 가능 발견>>" + hit.transform.name);
             DropHit = hit;
             return true;
         }
