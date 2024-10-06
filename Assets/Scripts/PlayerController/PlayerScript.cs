@@ -42,6 +42,13 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("프리팹 캐릭터 스폰"+transform.name);
+        healthbar = FindObjectOfType<HealthBar>();
+        energybar = FindObjectOfType<EnergyBar>();
+        DamageIndicator = FindObjectOfType<DamageIndicator>().gameObject;
+        DamageIndicator.SetActive(false);
+        MCC = FindObjectOfType<MainCameraController>();
+        MCC.SetCharacterTarget(transform);
         presentHealth = playerHealth;
         presentEnergy = playerEnergy;
         healthbar.GiveFullHealth(presentHealth);

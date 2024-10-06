@@ -42,10 +42,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(MainMenu.instance.startGame == true)
+        if ((MainMenu.instance!=null && MainMenu.instance.startGame == true))
         {
+           // Debug.Log("MainMenu.instance.startGame>>" + MainMenu.instance.startGame);
             MC.SetActive(false);
-            player.SetActive(false);
+           // player.SetActive(false);
             playerUI.SetActive(false);
             MMCam.SetActive(false);
             MMCanvas.SetActive(false);
@@ -54,22 +55,56 @@ public class GameManager : MonoBehaviour
             weaponsmenu.SetActive(false);
 
             cutScene1.SetActive(true);
-        }
 
-        if(CutSceneEnder.instance.CutSceneEnd == true)
+            //Debug.Log("MainMenu ÄÆ¾À ½ÃÀÛ°¡´É"+ MainMenu.instance.startGame);
+            if (CutSceneEnder.instance.CutSceneEnd == true)
+            {
+                MainMenu.instance.startGame = false;
+                MC.SetActive(true);
+                //player.SetActive(true);
+                playerUI.SetActive(true);
+                MMCam.SetActive(true);
+                MMCanvas.SetActive(true);
+                crossHairCanvas.SetActive(true);
+                weaponstopick.SetActive(true);
+                weaponsmenu.SetActive(true);
+
+                cutScene1.SetActive(false);
+            }
+        }
+        else if((CharacterSelection.instance != null && CharacterSelection.instance.startGame == true))
         {
-            MainMenu.instance.startGame = false;
-            MC.SetActive(true);
-            player.SetActive(true);
-            playerUI.SetActive(true);
-            MMCam.SetActive(true);
-            MMCanvas.SetActive(true);
-            crossHairCanvas.SetActive(true);
-            weaponstopick.SetActive(true);
-            weaponsmenu.SetActive(true);
+            //Debug.Log("CharacterSelection.instance.startGame>>" + CharacterSelection.instance.startGame);
+            MC.SetActive(false);
+            //player.SetActive(false);
+            playerUI.SetActive(false);
+            MMCam.SetActive(false);
+            MMCanvas.SetActive(false);
+            crossHairCanvas.SetActive(false);
+            weaponstopick.SetActive(false);
+            weaponsmenu.SetActive(false);
 
-            cutScene1.SetActive(false);
+            cutScene1.SetActive(true);
+
+            //Debug.Log("CharacterSelection ÄÆ¾À ½ÃÀÛ°¡´É"+ CharacterSelection.instance.startGame);
+            //Debug.Log("MainMenu ÄÆ¾À ½ÃÀÛ°¡´É"+ MainMenu.instance.startGame);
+            if (CutSceneEnder.instance.CutSceneEnd == true)
+            {
+                CharacterSelection.instance.startGame = false;
+                MC.SetActive(true);
+                //player.SetActive(true);
+                playerUI.SetActive(true);
+                MMCam.SetActive(true);
+                MMCanvas.SetActive(true);
+                //crossHairCanvas.SetActive(true);
+                //weaponstopick.SetActive(true);
+                //weaponsmenu.SetActive(true);
+
+                cutScene1.SetActive(false);
+                CharacterSelection.instance.gameObject.SetActive(false);
+            }
         }
+       
 
         //show Ammo & Mag for rifle and bazooka
         RifleAmmoText.text = "" + rifle.presentAmmunition;
