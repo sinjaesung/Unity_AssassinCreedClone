@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/19ThTownPack/Scenes/MainScene.unity
     guid: e7e8f886c14f9f347ad77dd7ec98d15c
+  - enabled: 1
+    path: Assets/19ThTownPack/Scenes/MainScene_onlyParkour.unity
+    guid: 99c001fa6e7117c4e99672400b4a3312
   m_configObjects: {}
