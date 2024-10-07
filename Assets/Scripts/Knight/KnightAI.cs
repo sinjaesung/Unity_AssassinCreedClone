@@ -39,12 +39,15 @@ public class KnightAI : MonoBehaviour
     private void Start()
     {
         CurrentmovingSpeed = movingSpeed;
-        currentHealth = maxHealth;
-        playerBody = GameObject.Find("Player");
+        currentHealth = maxHealth; 
     }
 
     private void Update()
     {
+        if (FindObjectOfType<PlayerScript>() != null)
+        {
+            playerBody = FindObjectOfType<PlayerScript>().gameObject;
+        }
         playerInvisionRadius = Physics.CheckSphere(transform.position,visionRadius,playerLayer);
         playerInattackRadius = Physics.CheckSphere(transform.position, attackRadius, playerLayer);
 

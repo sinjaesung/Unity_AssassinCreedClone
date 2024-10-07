@@ -96,9 +96,9 @@ public class GameManager : MonoBehaviour
                 playerUI.SetActive(true);
                 MMCam.SetActive(true);
                 MMCanvas.SetActive(true);
-                //crossHairCanvas.SetActive(true);
-                //weaponstopick.SetActive(true);
-                //weaponsmenu.SetActive(true);
+                crossHairCanvas.SetActive(true);
+                weaponstopick.SetActive(true);
+                weaponsmenu.SetActive(true);
 
                 cutScene1.SetActive(false);
                 CharacterSelection.instance.gameObject.SetActive(false);

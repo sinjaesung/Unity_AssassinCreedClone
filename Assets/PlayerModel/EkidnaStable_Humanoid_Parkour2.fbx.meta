@@ -674,8 +674,8 @@ ModelImporter:
       name: JumpingDown
       takeName: JumpingDown
       internalID: 510245896390622746
-      firstFrame: 5.2
-      lastFrame: 16.6
+      firstFrame: 0
+      lastFrame: 12
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

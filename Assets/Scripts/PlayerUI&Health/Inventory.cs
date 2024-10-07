@@ -43,6 +43,18 @@ public class Inventory : MonoBehaviour
     public GameObject CurrentWeapon3;
     public GameObject CurrentWeapon4;
 
+    private void Awake() {
+        var WeaponMenu = FindObjectOfType<WeaponMenu>();
+
+        NoWeapon = WeaponMenu.transform.GetChild(0).gameObject;
+        CurrentWeapon1 = WeaponMenu.transform.GetChild(1).gameObject;
+        CurrentWeapon2 = WeaponMenu.transform.GetChild(2).gameObject;
+        CurrentWeapon3 = WeaponMenu.transform.GetChild(3).gameObject;
+        CurrentWeapon4 = WeaponMenu.transform.GetChild(4).gameObject;
+
+        GM = FindObjectOfType<GameManager>();
+    }
+
     private void Update()
     {
         if (isWeapon1Active == false && isWeapon2Active == false && isWeapon3Active == false && isWeapon4Active == false && fistFightMode == false)

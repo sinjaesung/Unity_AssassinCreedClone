@@ -22,6 +22,10 @@ public class Bazooka : MonoBehaviour
 
     public float Timer = 0f;
 
+    private void Awake()
+    {
+        crosshair = FindObjectOfType<Crosshair>().gameObject;
+    }
     private void Start()
     {
         presentAmmunition = maximumAmmunition;

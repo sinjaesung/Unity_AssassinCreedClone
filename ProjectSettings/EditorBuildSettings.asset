@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/19ThTownPack/Scenes/CharacterSelectScene.unity
+    guid: eed4d6d5199fc6f429583c72a2095067
+  - enabled: 1
     path: Assets/19ThTownPack/Scenes/MainMenuScene.unity
     guid: 2044daf1b221cfe4580ce7723ddb4361
   - enabled: 1

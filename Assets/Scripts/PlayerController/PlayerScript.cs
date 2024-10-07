@@ -40,6 +40,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] Vector3 requiredMoveDir;
     Vector3 velocity;
 
+    public PickupItem[] pickupItems;
+    public Inventory inventory;
     private void Awake()
     {
         Debug.Log("프리팹 캐릭터 스폰"+transform.name);
@@ -53,6 +55,12 @@ public class PlayerScript : MonoBehaviour
         presentEnergy = playerEnergy;
         healthbar.GiveFullHealth(presentHealth);
         energybar.GiveFullEnergy(presentEnergy);
+        pickupItems = FindObjectsOfType<PickupItem>();
+        for(int e=0; e<pickupItems.Length; e++)
+        {
+            var item = pickupItems[e];
+            item.SetData(transform, inventory);
+        }
     }
 
     private void Update()

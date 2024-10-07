@@ -11,6 +11,10 @@ public class GrenadeThrower : MonoBehaviour
 
     public GameManager GM;
 
+    private void Awake()
+    {
+        GM = FindObjectOfType<GameManager>();
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && GM.numberofGrenades > 0)
